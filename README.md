@@ -28,14 +28,14 @@ pip install .  # installs the console-script `seek-scraper`
 
 ## Command-line usage
 ```text
-usage: seek-scraper [-h] [-v] [--epub] [--output OUTPUT]
+usage: seek-scraper [-h] [-v] [-e] [-o OUTPUT]
 ```
 
 Flag | Description
 ---- | -----------
 `-v`, `-vv`, ... | Increase logging verbosity (use twice for `DEBUG`).
-`--epub` | Build an EPUB after scraping.
-`--output PATH` | Custom path/filename for the EPUB (default: `SEEK.epub`).
+`-e`, `--epub` | Build an EPUB after scraping.
+`-o`, `--output PATH` | Custom path/filename for the EPUB (default: `SEEK.epub`).
 
 ### Examples
 1. **Print word-count statistics only**
@@ -45,12 +45,12 @@ Flag | Description
 
 2. **Generate an EPUB in the current directory**
    ```bash
-   seek-scraper --epub
+   seek-scraper -e
    ```
 
 3. **Generate an EPUB with a custom filename and verbose logging**
    ```bash
-   seek-scraper -v --epub --output ~/Books/Seek_2025-01-01.epub
+   seek-scraper -v -e -o ~/Books/Seek_2025-01-01.epub
    ```
 
 ## Output explained

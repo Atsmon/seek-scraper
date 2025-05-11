@@ -579,8 +579,8 @@ def parse_args(args=None, namespace=None):
     parser = argparse.ArgumentParser("SEEK Word Counter")
 
     parser.add_argument("-v", "--verbose", action="count", default=0)
-    parser.add_argument("--epub", action="store_true", help="Create EPUB version of the book")
-    parser.add_argument("--output", help="Output path for EPUB file (default: SEEK.epub)")
+    parser.add_argument("-e", "--epub", action="store_true", help="Create EPUB version of the book")
+    parser.add_argument("-o", "--output", help="Output path for EPUB file (default: SEEK.epub)")
 
     return parser.parse_args(args, namespace)
 
