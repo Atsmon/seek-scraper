@@ -485,6 +485,9 @@ class Scraper(OrderedDict):
                         image_cache[img_url] = (unique_name, mime_type)
                         file_name = unique_name
 
+                    # Remove all remote attributes
+                    img_tag.attrs.clear()
+
                     # Point the <img> tag to the local image file
                     img_tag["src"] = file_name
 
