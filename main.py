@@ -134,17 +134,16 @@ class Chapter:
                 if end_index is not None:
                     break
 
-        # Copy any image-only elements that appear BEFORE the navigation header so they aren't lost
-        if start_index is not None:
-            for element in elements[:start_index]:
-                if element.find("img"):
-                    sanitized = _sanitize_nav_links(element)
-                    content_div_new.append(sanitized)
-                    for img_tag in sanitized.find_all("img"):
-                        src = img_tag.get("src")
-                        src = src.split('?')[0]  # Remove params to avoid scaling issues
-                        if src and src not in image_urls:
-                            image_urls.append(src)
+        # Copy image elements that appear BEFORE the navigation header as well
+        for element in elements[:end_index + 1]:
+            if element.find("img"):
+                sanitized = _sanitize_nav_links(element)
+                content_div_new.append(sanitized)
+                for img_tag in sanitized.find_all("img"):
+                    src = img_tag.get("src")
+                    src = src.split('?')[0]  # Remove params to avoid scaling issues
+                    if src and src not in image_urls:
+                        image_urls.append(src)
 
         if start_index is None or end_index is None:
             logging.warning("Could not find content markers, copying all content")
@@ -158,12 +157,6 @@ class Chapter:
             if "style" in element.attrs:
                 element.attrs["style"] += " !important"
             content_div_new.append(element)
-            # Collect images within this element
-            for img_tag in element.find_all("img"):
-                src = img_tag.get("src")
-                src = src.split('?')[0]  # Remove params to avoid scaling issues
-                if src and src not in image_urls:
-                    image_urls.append(src)
             if element.name == "p":
                 text += f"\n\n{element.text}"
 
