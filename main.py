@@ -153,9 +153,6 @@ class Chapter:
 
         for element in elements:
             element = _sanitize_nav_links(element)
-            # Add !important to all inline styles to override Lithium's override
-            if "style" in element.attrs:
-                element.attrs["style"] += " !important"
             content_div_new.append(element)
             if element.name == "p":
                 text += f"\n\n{element.text}"
@@ -491,6 +488,11 @@ class Scraper(OrderedDict):
                     )
                     if centering_style not in existing_style:
                         img_tag["style"] = f"{existing_style} {centering_style}".strip()
+
+                for element in chapter_soup.find_all("p"):
+                    # Add !important to all inline styles to override Lithium's override
+                    if "style" in element.attrs:
+                        element.attrs["style"] += " !important"
 
                 # ---------- Build final chapter HTML ----------
                 content = f"""
