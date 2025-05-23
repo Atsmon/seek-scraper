@@ -152,10 +152,13 @@ class Chapter:
             elements = elements[start_index + 1 : end_index + 1]  # include end element
 
         for element in elements:
-            sanitized = _sanitize_nav_links(element)
-            content_div_new.append(sanitized)
+            element = _sanitize_nav_links(element)
+            # Add !important to all inline styles to override Lithium's override
+            if "style" in element.attrs:
+                element.attrs["style"] += " !important"
+            content_div_new.append(element)
             # Collect images within this element
-            for img_tag in sanitized.find_all("img"):
+            for img_tag in element.find_all("img"):
                 src = img_tag.get("src")
                 if src and src not in image_urls:
                     image_urls.append(src)
