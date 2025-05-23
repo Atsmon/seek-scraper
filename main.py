@@ -2,14 +2,11 @@ import argparse
 import logging
 import mimetypes
 import os
-
 from collections import OrderedDict
 from datetime import datetime
 from urllib.parse import urlparse
 
-
 import requests
-
 from bs4 import BeautifulSoup, NavigableString
 from ebooklib import epub
 
@@ -133,13 +130,13 @@ class Chapter:
                     break
 
         # Copy image elements that appear BEFORE the navigation header as well
-        for element in elements[:end_index + 1]:
+        for element in elements[: end_index + 1]:
             if element.find("img"):
                 element = _sanitize_nav_links(element)
                 content_div_new.append(element)
                 for img_tag in element.find_all("img"):
                     src = img_tag.get("src")
-                    src = src.split('?')[0]  # Remove params to avoid scaling issues
+                    src = src.split("?")[0]  # Remove params to avoid scaling issues
                     if src and src not in image_urls:
                         image_urls.append(src)
 
@@ -424,7 +421,7 @@ class Scraper(OrderedDict):
                 chapter_soup = BeautifulSoup(chapter.content_html, "html.parser")
 
                 for img_tag in chapter_soup.find_all("img"):
-                    img_url = img_tag.get("src").split('?')[0]  # Remove params to avoid scaling issues
+                    img_url = img_tag.get("src").split("?")[0]  # Remove params to avoid scaling issues
                     if not img_url:
                         continue
 
