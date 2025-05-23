@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 import requests
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
 from ebooklib import epub
 
 
@@ -43,8 +43,6 @@ def _sanitize_nav_links(elem):
             s.decompose()
 
     # Remove any bare strings exactly matching nav texts
-    from bs4 import NavigableString
-
     for text_node in list(elem.find_all(string=True)):
         if isinstance(text_node, NavigableString) and text_node.strip() in NAV_TEXTS:
             text_node.extract()
@@ -137,9 +135,9 @@ class Chapter:
         # Copy image elements that appear BEFORE the navigation header as well
         for element in elements[:end_index + 1]:
             if element.find("img"):
-                sanitized = _sanitize_nav_links(element)
-                content_div_new.append(sanitized)
-                for img_tag in sanitized.find_all("img"):
+                element = _sanitize_nav_links(element)
+                content_div_new.append(element)
+                for img_tag in element.find_all("img"):
                     src = img_tag.get("src")
                     src = src.split('?')[0]  # Remove params to avoid scaling issues
                     if src and src not in image_urls:
