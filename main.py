@@ -391,7 +391,7 @@ class Scraper(OrderedDict):
             <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />
         </head>
         <body>
-            <h1 style=\"text-align:center; margin-top:40vh;\">SEEK</h1>
+            <h1 style=\"text-align:center !important; margin-top:40vh;\">SEEK</h1>
         </body>
         </html>
         """
