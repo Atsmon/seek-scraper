@@ -3,7 +3,7 @@ from setuptools import setup
 # Project metadata
 NAME = "seek-scraper"
 PACKAGE = "main"  # single-file module
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 DESCRIPTION = "Scraper and EPUB generator for Wildbow's webserial SEEK"
 URL = "https://github.com/yourusername/seek-scraper"
 AUTHOR = "Your Name"
