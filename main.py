@@ -400,7 +400,7 @@ class Scraper(OrderedDict):
                 <link rel="stylesheet" type="text/css" href="style.css" />
             </head>
             <body>
-                <h1>Arc {i + 1}: {arc_name}</h1>
+                <h1>Arc {i}: {arc_name}</h1>
             </body>
             </html>
             """
