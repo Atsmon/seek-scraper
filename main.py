@@ -142,6 +142,7 @@ class Chapter:
                     content_div_new.append(sanitized)
                     for img_tag in sanitized.find_all("img"):
                         src = img_tag.get("src")
+                        src = src.split('?')[0]  # Remove params to avoid scaling issues
                         if src and src not in image_urls:
                             image_urls.append(src)
 
@@ -160,6 +161,7 @@ class Chapter:
             # Collect images within this element
             for img_tag in element.find_all("img"):
                 src = img_tag.get("src")
+                src = src.split('?')[0]  # Remove params to avoid scaling issues
                 if src and src not in image_urls:
                     image_urls.append(src)
             if element.name == "p":
@@ -434,7 +436,7 @@ class Scraper(OrderedDict):
                 chapter_soup = BeautifulSoup(chapter.content_html, "html.parser")
 
                 for img_tag in chapter_soup.find_all("img"):
-                    img_url = img_tag.get("src")
+                    img_url = img_tag.get("src").split('?')[0]  # Remove params to avoid scaling issues
                     if not img_url:
                         continue
 
